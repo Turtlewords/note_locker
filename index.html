@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Locker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <div class="container">
@@ -19,8 +21,8 @@
           <form>
             <label for="entry-calendar">Select date:</label>
             <input id="entry-calendar" type="date" required>
-            <textarea id="note" placeholder="Enter note here..." required></textarea>
-            <button id="submit-btn" type="submit">Submit</button>
+            <textarea id="entry-note" class="notepad" placeholder="Enter note here..." required></textarea>
+            <button id="entry-submit-btn" type="submit">Submit</button>
           </form>
         </section>
 

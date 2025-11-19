@@ -17,15 +17,20 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebas
 
 //   Elements
 
-const submitBtn = document.querySelector("#submit-btn")
-const entryDate = document.querySelector("#entry-calendar").value
-const selectionDate = dpcument.querySelector("#selection-date").value
-const note = document.querySelector("#note").value
+const entrySubmitBtn = document.querySelector("#entry-submit-btn")
+const selectionSubmitBtn = document.querySelector("#selection-submit-btn")
+const entryDate = document.querySelector("#entry-calendar")
+const selectionDate = document.querySelector("#selection-date")
+const note = document.querySelector("#note")
 const result = document.querySelector(".result")
 
 
 // Event Listeners
 
-submitBtn.addEventListener("click", (e) => {
+entrySubmitBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+})
+
+selectionSubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
 })

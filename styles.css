@@ -2,3 +2,13 @@ body, html {
     margin: 0;
     padding: 0;
 }
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main {
+    padding: 4em;
+}
