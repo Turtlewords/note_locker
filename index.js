@@ -1,9 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getDatabase,
+         ref,
+         push,
+         onValue,
+         remove, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js"
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
+    databaseURL: "https://note-locker-c8929-default-rtdb.firebaseio.com/",
     apiKey: "AIzaSyC4Ud9qS09DAASqKIJNRJpoOF3ql_eJJBg",
     authDomain: "note-locker-c8929.firebaseapp.com",
     projectId: "note-locker-c8929",
@@ -14,8 +20,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebas
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app)
 
-import { getDatabase, get, remove, ref, child, update, push } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
 
 const db = getDatabase()
 
@@ -25,7 +32,8 @@ const entrySubmitBtn = document.querySelector("#entry-submit-btn")
 const selectionSubmitBtn = document.querySelector("#selection-submit-btn")
 const entryDate = document.querySelector("#entry-calendar")
 const selectionDate = document.querySelector("#selection-date")
-const note = document.querySelector("#note")
+const entryNote = document.querySelector("#entry-note")
+const selectionNote = document.querySelector("#selection-note")
 const result = document.querySelector(".result")
 
 
@@ -33,7 +41,10 @@ const result = document.querySelector(".result")
 
 entrySubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
-
+    
+    set(ref(db, entryDate.value), {
+      text: entryNote.value
+    });
 })
 
 selectionSubmitBtn.addEventListener("click", (e) => {
