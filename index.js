@@ -14,3 +14,18 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebas
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+
+//   Elements
+
+const submitBtn = document.querySelector("#submit-btn")
+const entryDate = document.querySelector("#entry-calendar").value
+const selectionDate = dpcument.querySelector("#selection-date").value
+const note = document.querySelector("#note").value
+const result = document.querySelector(".result")
+
+
+// Event Listeners
+
+submitBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+})
