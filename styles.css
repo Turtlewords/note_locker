@@ -12,3 +12,13 @@ body, html {
 .main {
     padding: 4em;
 }
+
+.entry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.notepad {
+    height: 200px;
+}
