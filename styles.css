@@ -13,7 +13,7 @@ body, html {
     padding: 4em;
 }
 
-.entry-form {
+.entry-form, .result-form {
     display: flex;
     flex-direction: column;
     gap: 2rem;

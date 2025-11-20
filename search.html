@@ -17,12 +17,13 @@
       </header>
       <main class="main">
 
-        <section class="selection">
-          <input id="selection-calendar" type="date" >
-        </section>
+        <form class="selection">
+          <input id="selection-calendar" type="date">
+          <button id="select-date" type="submit">Select date</button>
+        </form>
 
         <section class="result">
-          <form>
+          <form class="result-form">
             <textarea id="selection-note" class="notepad" placeholder="Enter note here..." required></textarea>
             <button id="select-submit-btn" type="submit">Submit</button>
           </form>

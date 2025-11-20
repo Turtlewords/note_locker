@@ -3,7 +3,7 @@ import { getDatabase,
          ref,
          push,
          onValue,
-         remove, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js"
+         remove, set, get, child } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js"
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,25 +28,63 @@ const db = getDatabase()
 
 //   Elements
 
-const entrySubmitBtn = document.querySelector("#entry-submit-btn")
-const selectionSubmitBtn = document.querySelector("#selection-submit-btn")
-const entryDate = document.querySelector("#entry-calendar")
-const selectionDate = document.querySelector("#selection-date")
+const entrySubmitBtn = document.querySelector("#entry-submit-btn");
+const selectionSubmitBtn = document.querySelector("#select-submit-btn");
+const entryDate = document.querySelector("#entry-calendar");
+const selectionDate = document.querySelector("#selection-calendar");
+const selectDate = document.querySelector("#select-date");
 const entryNote = document.querySelector("#entry-note")
-const selectionNote = document.querySelector("#selection-note")
-const result = document.querySelector(".result")
+const selectionNote = document.querySelector("#selection-note");
+const result = document.querySelector(".result");
 
 
 // Event Listeners
 
-entrySubmitBtn.addEventListener("click", (e) => {
-    e.preventDefault()
+// entrySubmitBtn.addEventListener("click", (e) => {
+//     e.preventDefault()
     
-    set(ref(db, entryDate.value), {
-      text: entryNote.value
-    });
+//     set(ref(db, entryDate.value), {
+//       text: entryNote.value
+//     });
+// })
+
+selectDate.addEventListener("click", (e) => {
+    e.preventDefault()
+
+    const dbref = ref(db);
+    const date = selectionDate.value
+    console.log("selectionDate.value:" + selectionDate.value)
+    get(child(dbref, date)).then((snapshot) => {
+      selectionNote.value = snapshot.val().text
+    })
+
+    console.log("selectionDate.value:" + selectionDate.value)
+
+    // console.log("data.text: " + data.text)
+
+    
+    
 })
+
+
 
 selectionSubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
+    
 })
+
+
+//  function getNames() {
+
+//                 const dbref = ref(db);
+//                 let listOfNames = document.querySelectorAll(".paper");
+
+//                 if (listOfNames.length == 0) {
+//                     get(child(dbref, 'names')).then((names) => {
+//                         names.forEach(santa => {
+//                             addItemsToList(santa);
+//                         })
+//                     })
+//                 }
+                
+//            }
