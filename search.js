@@ -28,13 +28,12 @@ const db = getDatabase()
 
 //   Elements
 
-const entrySubmitBtn = document.querySelector("#entry-submit-btn");
+
 const selectionSubmitBtn = document.querySelector("#select-submit-btn");
-const entryDate = document.querySelector("#entry-calendar");
 const selectionDate = document.querySelector("#selection-calendar");
 const selectDate = document.querySelector("#select-date");
-const entryNote = document.querySelector("#entry-note")
 const selectionNote = document.querySelector("#selection-note");
+const editBtn = document.querySelector("#edit-btn");
 const result = document.querySelector(".result");
 
 
@@ -53,14 +52,27 @@ selectDate.addEventListener("click", (e) => {
     
 })
 
+editBtn.addEventListener("click", (e) => {
+    e.preventDefault()
 
+    editBtn.style.display = "none"
+    selectionSubmitBtn.style.display = "block"
+})
 
 selectionSubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
-    
+    addNote()
 })
 
 function clearInputs() {
     selectionDate.value = ""
     selectionNote.value = ""
+}
+
+function addNote() {
+  set(ref(db, selectDate.value), {
+              text: selectionNote.value
+            });
+            alert("Note submitted!")
+            clearInputs() 
 }

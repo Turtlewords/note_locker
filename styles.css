@@ -22,3 +22,11 @@ body, html {
 .notepad {
     height: 200px;
 }
+
+
+
+/* Search */
+
+#select-submit-btn {
+    display: none;
+}
