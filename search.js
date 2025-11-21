@@ -29,48 +29,38 @@ const db = getDatabase()
 //   Elements
 
 const entrySubmitBtn = document.querySelector("#entry-submit-btn");
+const selectionSubmitBtn = document.querySelector("#select-submit-btn");
 const entryDate = document.querySelector("#entry-calendar");
 const selectionDate = document.querySelector("#selection-calendar");
+const selectDate = document.querySelector("#select-date");
 const entryNote = document.querySelector("#entry-note")
 const selectionNote = document.querySelector("#selection-note");
-
+const result = document.querySelector(".result");
 
 
 // Event Listeners
 
-entrySubmitBtn.addEventListener("click", (e) => {
+
+selectDate.addEventListener("click", (e) => {
     e.preventDefault()
 
     const dbref = ref(db);
-    const date = entryDate.value
-        
+    const date = selectionDate.value
+    console.log("selectionDate.value:" + selectionDate.value)
     get(child(dbref, date)).then((snapshot) => {
-        if (snapshot.exists()) {
-          let check = prompt("There is already a note for this date. Overwrite previous note?")
-
-          if (check) {
-            addNote()
-          } else {
-            return
-          }
-        } else {
-          addNote()
-        }
+      selectionNote.value = snapshot.val().text
     })
-
     
+})
+
+
+
+selectionSubmitBtn.addEventListener("click", (e) => {
+    e.preventDefault()
     
 })
 
 function clearInputs() {
-    entryDate.value = ""
-    entryNote.value = ""
-}
-
-function addNote() {
-  set(ref(db, entryDate.value), {
-              text: entryNote.value
-            });
-            alert("Note submitted!")
-            clearInputs() 
+    selectionDate.value = ""
+    selectionNote.value = ""
 }
