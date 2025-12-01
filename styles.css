@@ -1,6 +1,24 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: whitesmoke;
+    background-color: #001229;
+    
+    
+    
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
@@ -9,8 +27,15 @@ body, html {
     align-items: center;
 }
 
+.nav-link {
+    text-decoration: none;
+    color: white;
+    
+}
+
 .main {
     padding: 4em;
+    max-width: 1200px;
 }
 
 .entry-form, .result-form {
@@ -23,10 +48,44 @@ body, html {
     height: 200px;
 }
 
+.icon {
+    width: 40px;
+}
+
+.mobile-menu {
+    /* transform: translateX(100%); */
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    min-height: 100%;
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    
+}
+
+
+
+.mobile-nav-link {
+    color: #001229;
+}
+
+
 
 
 /* Search */
 
 #select-submit-btn {
     display: none;
+}
+
+
+
+/* Media Queries */
+
+@media screen and (min-width: 1024px) {
+
 }

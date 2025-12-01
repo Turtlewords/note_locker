@@ -33,10 +33,16 @@ const entryDate = document.querySelector("#entry-calendar");
 const selectionDate = document.querySelector("#selection-calendar");
 const entryNote = document.querySelector("#entry-note")
 const selectionNote = document.querySelector("#selection-note");
-
+const hamburgerBtn = document.querySelector(".hamburger");
+const closeMenuBtn = document.querySelector(".close-menu");
+const mobileMenu = document.querySelector(".mobile-menu");
 
 
 // Event Listeners
+
+hamburgerBtn.addEventListener("click", () => {
+
+})
 
 entrySubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
@@ -74,3 +80,5 @@ function addNote() {
             alert("Note submitted!")
             clearInputs() 
 }
+
+
