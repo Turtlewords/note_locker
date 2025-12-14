@@ -1,16 +1,49 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
+    background-color: #023047;
+    color: whitesmoke;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .main {
-    padding: 4em;
+    
+    width: 90%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+h1 {
+    color: #FFB703;
+}
+
+#date-container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+#entry-calendar {
+    width: fit-content;
 }
 
 .entry-form, .result-form {
@@ -20,7 +53,20 @@ body, html {
 }
 
 .notepad {
-    height: 200px;
+    height: 300px;
+}
+
+#entry-submit-btn, #edit-btn, #select-submit-btn {
+    width: fit-content;
+    padding: .25rem;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #8ECAE6;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: whitesmoke;
 }
 
 
@@ -29,4 +75,19 @@ body, html {
 
 #select-submit-btn {
     display: none;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+#selection-calendar, #select-date {
+    width: 116px;
+}
+
+#select-date {
+    background-color: #8ECAE6;
+    cursor: pointer;
 }
