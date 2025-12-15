@@ -17,7 +17,7 @@ body, html {
     align-items: center;
 }
 
-.header {
+.desk-header {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -75,8 +75,15 @@ h1 {
     width: 40px;
 }
 
+.mobile-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 1rem;
+}
+
 .mobile-menu {
-    /* transform: translateX(100%); */
+    transform: translateX(100%);
     position: absolute;
     inset: 0;
     z-index: 2;
@@ -87,13 +94,23 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: end;
+    transition: transform .8s ease-in;
     
 }
 
+.mobile-nav {
+    margin-top: 2rem;
+}
 
+.mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
 
 .mobile-nav-link {
     color: #001229;
+    font-size: 1.25rem;
 }
 
 
@@ -118,4 +135,18 @@ h1 {
 #select-date {
     background-color: #8ECAE6;
     cursor: pointer;
+}
+
+/* Media Queries */
+
+@media (max-width: 1024px) {
+    .desk-header {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mobile-header {
+        display: none;
+    }
 }

@@ -68,6 +68,16 @@ entrySubmitBtn.addEventListener("click", (e) => {
     
 })
 
+closeMenuBtn.addEventListener("click", () => {
+  mobileMenu.style.transform = "translateX(100%)";
+})
+
+hamburgerBtn.addEventListener("click", () => {
+  mobileMenu.style.transform = "translateX(0)";
+})
+
+// Functions
+
 function clearInputs() {
     entryDate.value = ""
     entryNote.value = ""
