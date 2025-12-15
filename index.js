@@ -40,10 +40,6 @@ const mobileMenu = document.querySelector(".mobile-menu");
 
 // Event Listeners
 
-hamburgerBtn.addEventListener("click", () => {
-
-})
-
 entrySubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
 
