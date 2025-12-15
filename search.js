@@ -35,10 +35,20 @@ const selectDate = document.querySelector("#select-date");
 const selectionNote = document.querySelector("#selection-note");
 const editBtn = document.querySelector("#edit-btn");
 const result = document.querySelector(".result");
+const hamburgerBtn = document.querySelector(".hamburger");
+const closeMenuBtn = document.querySelector(".close-menu");
+const mobileMenu = document.querySelector(".mobile-menu");
 
 
 // Event Listeners
 
+closeMenuBtn.addEventListener("click", () => {
+  mobileMenu.style.transform = "translateX(100%)";
+})
+
+hamburgerBtn.addEventListener("click", () => {
+  mobileMenu.style.transform = "translateX(0)";
+})
 
 selectDate.addEventListener("click", (e) => {
     e.preventDefault()
