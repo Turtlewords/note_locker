@@ -85,7 +85,7 @@ function clearInputs() {
 }
 
 function addNote() {
-  set(ref(db, selectDate.value), {
+  set(ref(db, selectionDate.value), {
               text: selectionNote.value
             });
             alert("Note submitted!")
