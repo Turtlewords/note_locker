@@ -47,7 +47,12 @@ selectDate.addEventListener("click", (e) => {
     const date = selectionDate.value
     console.log("selectionDate.value:" + selectionDate.value)
     get(child(dbref, date)).then((snapshot) => {
-      selectionNote.value = snapshot.val().text
+      if (snapshot.exists()) {
+        selectionNote.value = snapshot.val().text
+      } else {
+        alert("No note from this date!")
+      }
+      
     })
     
 })
