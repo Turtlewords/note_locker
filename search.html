@@ -39,11 +39,21 @@
         <form class="selection">
           <input id="selection-calendar" type="date">
           <button id="select-date" type="submit">Select date</button>
+
+          <div class="search-container">
+            <label for="search-notes">Search notes:</label>
+            <input id="search-notes" type="text" placeholder="Search for...">
+            <button id="search-notes-btn">Search</button>
+          </div>
+          
+          
         </form>
+
+        
 
         <section class="result">
           <form class="result-form">
-            <textarea id="selection-note" class="notepad" placeholder="Enter note here..." required></textarea>
+            <textarea id="selection-note" class="notepad" placeholder="Enter note here..." required disabled></textarea>
             <button id="edit-btn">Edit?</button>
             <button id="select-submit-btn" type="submit">Submit</button>
           </form>

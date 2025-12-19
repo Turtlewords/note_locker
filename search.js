@@ -32,6 +32,8 @@ const db = getDatabase()
 const selectionSubmitBtn = document.querySelector("#select-submit-btn");
 const selectionDate = document.querySelector("#selection-calendar");
 const selectDate = document.querySelector("#select-date");
+const searchValue = document.querySelector("#search-notes")
+const searchNotes = document.querySelector("#search-notes-btn")
 const selectionNote = document.querySelector("#selection-note");
 const editBtn = document.querySelector("#edit-btn");
 const result = document.querySelector(".result");
@@ -67,9 +69,14 @@ selectDate.addEventListener("click", (e) => {
     
 })
 
+searchNotes.addEventListener("click", (e) => {
+  e.preventDefault()
+  search();
+})
+
 editBtn.addEventListener("click", (e) => {
     e.preventDefault()
-
+    selectionNote.disabled = false
     editBtn.style.display = "none"
     selectionSubmitBtn.style.display = "block"
 })
@@ -90,4 +97,33 @@ function addNote() {
             });
             alert("Note submitted!")
             clearInputs() 
+            selectionNote.disabled = true
+}
+
+function search() {
+  let found = false;
+  let userQuery = searchValue.value
+
+  const dbref = ref(db);
+  onValue(dbref, (snapshot) => {
+  if (snapshot.exists()) {
+    // Iterate over children
+    snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key; // Unique ID
+      const childData = childSnapshot.val(); // Data object
+      
+      if (childData.text.includes(userQuery)) {
+        console.log(childKey)
+        found = true;
+      } 
+      if (!found) {
+        alert("Search parameter not found")
+      }
+      
+      
+    });
+  } else {
+    console.log("No data available");
+  }
+});
 }
