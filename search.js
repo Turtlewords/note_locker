@@ -35,6 +35,8 @@ const selectDate = document.querySelector("#select-date");
 const searchValue = document.querySelector("#search-notes")
 const searchNotes = document.querySelector("#search-notes-btn")
 const selectionNote = document.querySelector("#selection-note");
+const dropdown = document.querySelector("#dropdown");
+
 const editBtn = document.querySelector("#edit-btn");
 const result = document.querySelector(".result");
 const hamburgerBtn = document.querySelector(".hamburger");
@@ -102,7 +104,8 @@ function addNote() {
 
 function search() {
   let found = false;
-  let userQuery = searchValue.value
+  let userQuery = searchValue.value.toLowerCase()
+  let dataArr = []
 
   const dbref = ref(db);
   onValue(dbref, (snapshot) => {
@@ -112,18 +115,33 @@ function search() {
       const childKey = childSnapshot.key; // Unique ID
       const childData = childSnapshot.val(); // Data object
       
-      if (childData.text.includes(userQuery)) {
+      if (childData.text.toLowerCase().includes(userQuery)) {
         console.log(childKey)
         found = true;
+        dataArr.push(childKey)
       } 
       if (!found) {
         alert("Search parameter not found")
+      } else {
+        populateSelection(dataArr)
       }
       
       
+
     });
   } else {
     console.log("No data available");
   }
 });
+}
+
+function populateSelection(arr) {
+  let options = ""
+  arr.forEach((item) => {
+     options += `
+    <option value=${item}>${item}</option>
+    
+    `
+    dropdown.innerHTML = options
+  })
 }
