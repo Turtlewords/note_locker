@@ -134,6 +134,7 @@ function search() {
 }
 
 function populateSelection(arr) {
+  dropdown.style.visibility = "visible"
   let options = ""
   arr.forEach((item) => {
      options += `
@@ -197,7 +198,7 @@ function populateRecentPostsList(arr) {
   arr.forEach((post) => {
     const newBtn = document.createElement('button');
     newBtn.textContent = post;
-
+    newBtn.classList.add("recent-btn")
     newBtn.addEventListener("click", () => {
       fetchRecentPost(post)
     })

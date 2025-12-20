@@ -137,6 +137,47 @@ h1 {
     cursor: pointer;
 }
 
+#search-notes-btn {
+    cursor: pointer;
+}
+
+.dropdown {
+    visibility: hidden;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.recent-posts-container {
+    text-align: center;
+}
+
+#recent-title {
+    margin-top: 0;
+}
+
+.recent-posts {
+    display: flex;
+    justify-content: center;
+    gap: .75em;
+    flex-wrap: wrap;
+    padding: 1rem;
+}
+
+.recent-btn {
+    background-color: #FFB703;
+    padding: .75em;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.recent-btn:hover {
+    opacity: 0.7;
+}
+
 /* Media Queries */
 
 @media (max-width: 1024px) {
@@ -148,5 +189,21 @@ h1 {
 @media (min-width: 1024px) {
     .mobile-header {
         display: none;
+    }
+
+    .result {
+        flex-direction: row;
+        justify-content: center;
+        gap: 4rem;
+    }
+
+    .result-form {
+        width: 90%;
+        justify-content: center;
+    }
+
+    .recent-posts {
+        flex-wrap: nowrap;
+        flex-direction: column;
     }
 }
