@@ -36,7 +36,7 @@ const searchValue = document.querySelector("#search-notes")
 const searchNotes = document.querySelector("#search-notes-btn")
 const selectionNote = document.querySelector("#selection-note");
 const dropdown = document.querySelector("#dropdown");
-
+const recentPosts = document.querySelector(".recent-posts")
 const editBtn = document.querySelector("#edit-btn");
 const result = document.querySelector(".result");
 const hamburgerBtn = document.querySelector(".hamburger");
@@ -145,3 +145,37 @@ function populateSelection(arr) {
     dropdown.innerHTML = options
   })
 }
+
+
+function populateRecentPostsArr() {
+  let dataArr = []
+
+  const dbref = ref(db);
+  onValue(dbref, (snapshot) => {
+  if (snapshot.exists()) {
+    // Iterate over children
+    snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key; // Unique ID
+      const childData = childSnapshot.val(); // Data object
+      
+      dataArr.push(childKey)
+      
+    });
+  } else {
+    console.log("No data available");
+  }
+});
+
+populateRecentPostsList(dataArr)
+}
+
+function populateRecentPostsList(arr) {
+  let html = ""
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr)
+  }
+  recentPosts.innerHTML = html
+  
+}
+
+populateRecentPostsArr()
