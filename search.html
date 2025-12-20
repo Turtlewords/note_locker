@@ -6,6 +6,20 @@
     <title>Chiku's Notes</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script>
+      function fetchRecentPost(date) {
+  const dbref = ref(db);
+    
+  get(child(dbref, date)).then((snapshot) => {
+    if (snapshot.exists()) {
+      selectionNote.value = snapshot.val().text
+    } else {
+      alert("No note from this date!")
+    }
+      
+  })
+}
+    </script>
 </head>
 <body>
     <div class="container">

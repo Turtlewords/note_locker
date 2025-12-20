@@ -120,15 +120,13 @@ function search() {
         found = true;
         dataArr.push(childKey)
       } 
-      if (!found) {
+    });
+    if (!found) {
         alert("Search parameter not found")
       } else {
         populateSelection(dataArr)
       }
-      
-      
 
-    });
   } else {
     console.log("No data available");
   }
@@ -147,11 +145,33 @@ function populateSelection(arr) {
 }
 
 
-function populateRecentPostsArr() {
+// function populateRecentPostsArr() {
+//   let dataArr = []
+
+//   const dbref = ref(db);
+//   onValue(dbref, (snapshot) => {
+//   if (snapshot.exists()) {
+//     // Iterate over children
+//     snapshot.forEach((childSnapshot) => {
+//       const childKey = childSnapshot.key; // Unique ID
+//       const childData = childSnapshot.val(); // Data object
+      
+//       dataArr.push(childKey)
+      
+//     });
+//   } else {
+//     console.log("No data available");
+//   }
+// });
+
+// populateRecentPostsList(dataArr)
+// }
+
+async function populateRecentPostsArr() {
   let dataArr = []
 
   const dbref = ref(db);
-  onValue(dbref, (snapshot) => {
+  const snapshot = await get(child(dbref, '/'));
   if (snapshot.exists()) {
     // Iterate over children
     snapshot.forEach((childSnapshot) => {
@@ -164,18 +184,42 @@ function populateRecentPostsArr() {
   } else {
     console.log("No data available");
   }
-});
 
 populateRecentPostsList(dataArr)
 }
 
 function populateRecentPostsList(arr) {
-  let html = ""
-  for (let i = 0; i < arr.length; i++) {
-    console.log(arr)
-  }
-  recentPosts.innerHTML = html
+  // let html = ""
+  // arr.forEach((post) => {
+  //   html += `<button onclick="fetchRecentPost(${post})">${post}</button>`
+  // })
+  // recentPosts.innerHTML = html
+  arr.forEach((post) => {
+    const newBtn = document.createElement('button');
+    newBtn.textContent = post;
+
+    newBtn.addEventListener("click", () => {
+      fetchRecentPost(post)
+    })
+
+    recentPosts.appendChild(newBtn)
+  })
   
 }
 
+function fetchRecentPost(date) {
+      const dbref = ref(db);
+    
+        get(child(dbref, date)).then((snapshot) => {
+          if (snapshot.exists()) {
+            selectionNote.value = snapshot.val().text
+          } else {
+            alert("No note from this date!")
+          }
+            
+        })
+      }
+
 populateRecentPostsArr()
+
+
