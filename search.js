@@ -35,7 +35,8 @@ const selectDate = document.querySelector("#select-date");
 const searchValue = document.querySelector("#search-notes")
 const searchNotes = document.querySelector("#search-notes-btn")
 const selectionNote = document.querySelector("#selection-note");
-const dropdown = document.querySelector("#dropdown");
+const dropdown = document.querySelector(".dropdown");
+const dropdownBtn = document.querySelector(".dropdown-btn")
 const recentPosts = document.querySelector(".recent-posts")
 const editBtn = document.querySelector("#edit-btn");
 const result = document.querySelector(".result");
@@ -59,7 +60,7 @@ selectDate.addEventListener("click", (e) => {
 
     const dbref = ref(db);
     const date = selectionDate.value
-    console.log("selectionDate.value:" + selectionDate.value)
+    
     get(child(dbref, date)).then((snapshot) => {
       if (snapshot.exists()) {
         selectionNote.value = snapshot.val().text
@@ -87,6 +88,24 @@ selectionSubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
     addNote()
 })
+
+dropdownBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const date = dropdown.value
+  const dbref = ref(db);
+    
+        get(child(dbref, date)).then((snapshot) => {
+          if (snapshot.exists()) {
+            selectionNote.value = snapshot.val().text
+          } else {
+            alert("No note from this date!")
+          }
+            
+        })
+})
+
+
+// Functions
 
 function clearInputs() {
     selectionDate.value = ""
@@ -116,7 +135,7 @@ function search() {
       const childData = childSnapshot.val(); // Data object
       
       if (childData.text.toLowerCase().includes(userQuery)) {
-        console.log(childKey)
+        
         found = true;
         dataArr.push(childKey)
       } 
@@ -135,6 +154,7 @@ function search() {
 
 function populateSelection(arr) {
   dropdown.style.visibility = "visible"
+  dropdownBtn.style.visibility = "visible"
   let options = ""
   arr.forEach((item) => {
      options += `
