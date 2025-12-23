@@ -38,7 +38,7 @@ const selectionNote = document.querySelector("#selection-note");
 const dropdown = document.querySelector(".dropdown");
 const dropdownBtn = document.querySelector(".dropdown-btn")
 const recentPosts = document.querySelector(".recent-posts")
-const editBtn = document.querySelector("#edit-btn");
+
 const result = document.querySelector(".result");
 const hamburgerBtn = document.querySelector(".hamburger");
 const closeMenuBtn = document.querySelector(".close-menu");
@@ -77,12 +77,7 @@ searchNotes.addEventListener("click", (e) => {
   search();
 })
 
-editBtn.addEventListener("click", (e) => {
-    e.preventDefault()
-    selectionNote.disabled = false
-    editBtn.style.display = "none"
-    selectionSubmitBtn.style.display = "block"
-})
+
 
 selectionSubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
@@ -199,7 +194,7 @@ async function populateRecentPostsArr() {
       const childKey = childSnapshot.key; // Unique ID
       const childData = childSnapshot.val(); // Data object
       
-      dataArr.push(childKey)
+      dataArr.unshift(childKey)
       
     });
   } else {
@@ -215,7 +210,11 @@ function populateRecentPostsList(arr) {
   //   html += `<button onclick="fetchRecentPost(${post})">${post}</button>`
   // })
   // recentPosts.innerHTML = html
-  arr.forEach((post) => {
+  let count = 0
+  for (let post of arr) {
+    if (count == 5){
+      break
+    }
     const newBtn = document.createElement('button');
     newBtn.textContent = post;
     newBtn.classList.add("recent-btn")
@@ -224,7 +223,8 @@ function populateRecentPostsList(arr) {
     })
 
     recentPosts.appendChild(newBtn)
-  })
+    count += 1
+  }
   
 }
 

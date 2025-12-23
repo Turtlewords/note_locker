@@ -58,7 +58,7 @@ h1 {
     height: 300px;
 }
 
-#entry-submit-btn, #edit-btn, #select-submit-btn, .dropdown-btn {
+#entry-submit-btn, #select-submit-btn, .dropdown-btn {
     width: fit-content;
     padding: .25rem;
     font-weight: 500;
@@ -122,9 +122,6 @@ h1 {
 
 /* Search */
 
-#select-submit-btn {
-    display: none;
-}
 
 .selection {
     display: flex;
