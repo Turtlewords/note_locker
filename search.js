@@ -230,6 +230,7 @@ function populateRecentPostsList(arr) {
 
 function fetchRecentPost(date) {
       const dbref = ref(db);
+      selectionDate.value = date
     
         get(child(dbref, date)).then((snapshot) => {
           if (snapshot.exists()) {
