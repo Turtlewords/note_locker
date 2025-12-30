@@ -113,7 +113,7 @@ function addNote() {
             });
             alert("Note submitted!")
             clearInputs() 
-            selectionNote.disabled = true
+            
 }
 
 function search() {
