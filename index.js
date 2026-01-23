@@ -87,4 +87,21 @@ function addNote() {
             clearInputs() 
 }
 
+function loadTodaysNote() {
+  const todayUTC = new Date().toISOString().split("T")[0]
+  const dbref = ref(db);
+      
+      
+      get(child(dbref, todayUTC)).then((snapshot) => {
+        if (snapshot.exists()) {
+          entryNote.value = snapshot.val().text
+        } 
+        
+      })
+}
+
+// Function Calls
+
+loadTodaysNote()
+
 
