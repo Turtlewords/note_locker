@@ -36,7 +36,7 @@ const selectionNote = document.querySelector("#selection-note");
 const hamburgerBtn = document.querySelector(".hamburger");
 const closeMenuBtn = document.querySelector(".close-menu");
 const mobileMenu = document.querySelector(".mobile-menu");
-
+let lastInteractionTime = 0
 
 // Event Listeners
 
@@ -72,6 +72,10 @@ hamburgerBtn.addEventListener("click", () => {
   mobileMenu.style.transform = "translateX(0)";
 })
 
+entryNote.addEventListener("click", updateLastInteractionTime)
+entryNote.addEventListener("keydown", updateLastInteractionTime)
+entryNote.addEventListener("input", updateLastInteractionTime)
+
 // Functions
 
 function clearInputs() {
@@ -87,18 +91,46 @@ function addNote() {
             clearInputs() 
 }
 
+function autoSaveNote() {
+  set(ref(db, entryDate.value), {
+              text: entryNote.value
+            });
+  console.log("Saved")
+}
+
 function loadTodaysNote() {
   const todayUTC = new Date().toISOString().split("T")[0]
   const dbref = ref(db);
+  entryDate.value = todayUTC
       
-      
-      get(child(dbref, todayUTC)).then((snapshot) => {
-        if (snapshot.exists()) {
-          entryNote.value = snapshot.val().text
-        } 
+  get(child(dbref, todayUTC)).then((snapshot) => {
+    if (snapshot.exists()) {
+      entryNote.value = snapshot.val().text
+    } 
         
-      })
+    })
 }
+
+function updateLastInteractionTime() {
+  lastInteractionTime = Date.now()
+}
+
+function getTimeSinceLastInteraction() {
+  const currentTime = Date.now()
+  const elapsedTimeInMilliseconds = currentTime - lastInteractionTime
+
+  const elapsedTimeInSeconds = Math.floor(elapsedTimeInMilliseconds / 1000)
+
+  return elapsedTimeInSeconds
+}
+
+setInterval(() => {
+  const timeSinceLast = getTimeSinceLastInteraction()
+
+  if (timeSinceLast >= 6) {
+    autoSaveNote()
+  }
+}, 5000)
 
 // Function Calls
 
