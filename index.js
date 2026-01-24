@@ -46,7 +46,9 @@ entryDate.addEventListener("change", () => {
   get(child(dbref, entryDate.value)).then((snapshot) => {
     if (snapshot.exists()) {
       entryNote.value = snapshot.val().text
-    } 
+    } else {
+      entryNote.value = ""
+    }
         
     })
 })
@@ -122,6 +124,20 @@ function loadTodaysNote() {
     })
 }
 
+function reloadCurrentNote() {
+  const todayUTC = new Date().toISOString().split("T")[0]
+  const dbref = ref(db);
+  
+      
+  get(child(dbref, entryDate.value)).then((snapshot) => {
+    if (snapshot.exists()) {
+      entryNote.value = snapshot.val().text
+    } else {
+      entryNote.value = ""
+    }   
+    })
+}
+
 function updateLastInteractionTime() {
   lastInteractionTime = Date.now()
 }
@@ -137,11 +153,18 @@ function getTimeSinceLastInteraction() {
 
 setInterval(() => {
   const timeSinceLast = getTimeSinceLastInteraction()
-
-  if (timeSinceLast >= 6) {
+  const dbref = ref(db);
+  
+      
+  get(child(dbref, entryDate.value)).then((snapshot) => {
+    if (snapshot.exists()) {
+      if (timeSinceLast >= 6 && selectionNote.value.trim() != "") {
     autoSaveNote()
-    loadTodaysNote()
+    reloadCurrentNote()
   }
+    } 
+    })
+  
 }, 5000)
 
 // Function Calls

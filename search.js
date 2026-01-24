@@ -31,7 +31,7 @@ const db = getDatabase()
 
 const selectionSubmitBtn = document.querySelector("#select-submit-btn");
 const selectionDate = document.querySelector("#selection-calendar");
-const selectDate = document.querySelector("#select-date");
+// const selectDate = document.querySelector("#select-date");
 const searchValue = document.querySelector("#search-notes")
 const searchNotes = document.querySelector("#search-notes-btn")
 const selectionNote = document.querySelector("#selection-note");
@@ -59,22 +59,36 @@ hamburgerBtn.addEventListener("click", () => {
   mobileMenu.style.transform = "translateX(0)";
 })
 
-selectDate.addEventListener("click", (e) => {
-    e.preventDefault()
-
-    const dbref = ref(db);
-    const date = selectionDate.value
-    
-    get(child(dbref, date)).then((snapshot) => {
-      if (snapshot.exists()) {
-        selectionNote.value = snapshot.val().text
-      } else {
-        alert("No note from this date!")
-      }
+selectionDate.addEventListener("change", () => {
+  const dbref = ref(db);
       
+  get(child(dbref, selectionDate.value)).then((snapshot) => {
+    if (snapshot.exists()) {
+      selectionNote.value = snapshot.val().text
+    } else {
+      alert("No note from this date!")
+      // selectionNote.value = ""
+    }
+        
     })
-    
 })
+
+// selectDate.addEventListener("click", (e) => {
+//     e.preventDefault()
+
+//     const dbref = ref(db);
+//     const date = selectionDate.value
+    
+//     get(child(dbref, date)).then((snapshot) => {
+//       if (snapshot.exists()) {
+//         selectionNote.value = snapshot.val().text
+//       } else {
+//         alert("No note from this date!")
+//       }
+      
+//     })
+    
+// })
 
 searchNotes.addEventListener("click", (e) => {
   e.preventDefault()
@@ -261,11 +275,13 @@ function getTimeSinceLastInteraction() {
 
 setInterval(() => {
   const timeSinceLast = getTimeSinceLastInteraction()
-
-  if (timeSinceLast >= 6) {
+  if (selectionDate.value != "") {
+    if (timeSinceLast >= 6 && selectionNote.value.trim() != "") {
     autoSaveNote()
-    loadTodaysNote()
+    reloadCurrentNote()
   }
+  }
+  
 }, 5000)
 
 function autoSaveNote() {
@@ -275,16 +291,15 @@ function autoSaveNote() {
   console.log("Saved")
 }
 
-function loadTodaysNote() {
+function reloadCurrentNote() {
   const todayUTC = new Date().toISOString().split("T")[0]
   const dbref = ref(db);
-  selectionDate.value = todayUTC
+  
       
-  get(child(dbref, todayUTC)).then((snapshot) => {
+  get(child(dbref, selectionDate.value)).then((snapshot) => {
     if (snapshot.exists()) {
       selectionNote.value = snapshot.val().text
-    } 
-        
+    }  
     })
 }
 
