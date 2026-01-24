@@ -158,7 +158,7 @@ setInterval(() => {
       
   get(child(dbref, entryDate.value)).then((snapshot) => {
     if (snapshot.exists()) {
-      if (timeSinceLast >= 6 && selectionNote.value.trim() != "") {
+      if (timeSinceLast >= 6 && entryNote.value.trim() != "") {
     autoSaveNote()
     reloadCurrentNote()
   }
