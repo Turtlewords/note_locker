@@ -129,6 +129,7 @@ setInterval(() => {
 
   if (timeSinceLast >= 6) {
     autoSaveNote()
+    loadTodaysNote()
   }
 }, 5000)
 
