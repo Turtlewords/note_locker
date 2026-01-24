@@ -40,6 +40,17 @@ let lastInteractionTime = 0
 
 // Event Listeners
 
+entryDate.addEventListener("change", () => {
+  const dbref = ref(db);
+      
+  get(child(dbref, entryDate.value)).then((snapshot) => {
+    if (snapshot.exists()) {
+      entryNote.value = snapshot.val().text
+    } 
+        
+    })
+})
+
 entrySubmitBtn.addEventListener("click", (e) => {
     e.preventDefault()
 

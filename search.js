@@ -43,9 +43,13 @@ const result = document.querySelector(".result");
 const hamburgerBtn = document.querySelector(".hamburger");
 const closeMenuBtn = document.querySelector(".close-menu");
 const mobileMenu = document.querySelector(".mobile-menu");
-
+let lastInteractionTime = 0
 
 // Event Listeners
+
+selectionNote.addEventListener("click", updateLastInteractionTime)
+selectionNote.addEventListener("keydown", updateLastInteractionTime)
+selectionNote.addEventListener("input", updateLastInteractionTime)
 
 closeMenuBtn.addEventListener("click", () => {
   mobileMenu.style.transform = "translateX(100%)";
@@ -241,6 +245,50 @@ function fetchRecentPost(date) {
             
         })
       }
+
+function updateLastInteractionTime() {
+  lastInteractionTime = Date.now()
+}
+
+function getTimeSinceLastInteraction() {
+  const currentTime = Date.now()
+  const elapsedTimeInMilliseconds = currentTime - lastInteractionTime
+
+  const elapsedTimeInSeconds = Math.floor(elapsedTimeInMilliseconds / 1000)
+
+  return elapsedTimeInSeconds
+}
+
+setInterval(() => {
+  const timeSinceLast = getTimeSinceLastInteraction()
+
+  if (timeSinceLast >= 6) {
+    autoSaveNote()
+    loadTodaysNote()
+  }
+}, 5000)
+
+function autoSaveNote() {
+  set(ref(db, selectionDate.value), {
+              text: selectionNote.value
+            });
+  console.log("Saved")
+}
+
+function loadTodaysNote() {
+  const todayUTC = new Date().toISOString().split("T")[0]
+  const dbref = ref(db);
+  selectionDate.value = todayUTC
+      
+  get(child(dbref, todayUTC)).then((snapshot) => {
+    if (snapshot.exists()) {
+      selectionNote.value = snapshot.val().text
+    } 
+        
+    })
+}
+
+// Function Calls
 
 populateRecentPostsArr()
 
